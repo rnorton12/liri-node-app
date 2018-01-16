@@ -21,25 +21,29 @@ exports.printMovieInfo = function (movie) {
 
     // Run a request to the OMDB API with the movie specified
     var apiKey = "e9ca6a3f";
-    var queryUrl = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + title;
+    var queryUrl = "http://www.omdbapi.com/?apikey=" + apiKey + "&t=" + movie;
     // var queryUrl = "http://www.omdbapi.com/?apikey=" + apiKey;
     console.log(queryUrl);
     request(queryUrl,
         function (error, response, body) {
-            console.log("error: " + error);
-            console.log("response:" + response);
-            console.log("body: " + body);
+           //console.log("error: " + error);
+           //console.log("response:" + JSON.stringify(response));
+           //console.log("body: " + body);
             var data = JSON.parse(body);
             // If the request is successful (i.e. if the response status code is 200)
             if (!error && response.statusCode === 200) {
-                console.log("Title: " + data.Title);
-                console.log("Year: " + data.Year);
-                console.log("IMDB Rating: " + data.Ratings[0].Value);
-                console.log("Rotten Tomatoes Rating: " + data.Ratings[1].Value);
-                console.log("Country: " + data.Country);
-                console.log("Language: " + data.Language);
-                console.log("Plot: " + data.Plot);
-                console.log("Actors: " + data.Actors);
+                if (data.Error !== undefined) {
+                    console.log("error = " + data.Error);
+                } else {
+                    console.log("Title: " + data.Title);
+                    console.log("Year: " + data.Year);
+                    console.log("IMDB Rating: " + data.Ratings[0].Value);
+                    console.log("Rotten Tomatoes Rating: " + data.Ratings[1].Value);
+                    console.log("Country: " + data.Country);
+                    console.log("Language: " + data.Language);
+                    console.log("Plot: " + data.Plot);
+                    console.log("Actors: " + data.Actors);
+                } 
             } else {
                 console.log("error = " + data.Error);
             }

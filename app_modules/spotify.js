@@ -11,21 +11,24 @@ var SpotifyWebApi = require("spotify-web-api-node");
 exports.printSongInfo = function (keys, song) {
     var defaultTrack = "The Sign";
     var defaultArtist = "Ace of Base";
-
+    
     // Set necessary parts of the credentials on the constructor
-    var spotifyApi = new SpotifyWebApi(keys);
+    var spotifyApi = new SpotifyWebApi({
+        clientId: keys.client_id,
+        clientSecret: keys.client_secret
+    });
 
     // Get an access token and 'save' it using a setter
     spotifyApi.clientCredentialsGrant()
     .then(function (data) {
-        console.log('The access token is ' + data.body['access_token']);
+        //console.log('The access token is ' + data.body['access_token']);
         spotifyApi.setAccessToken(data.body['access_token']);
 
         // Do search using the access token
         if (song === undefined) {
-            query = "track:" + defaultTrack + " artist:" + "Ace of Base";
+            query = "track:" + defaultTrack + " artist:" + defaultArtist;
         } else {
-            query = "track:" + title;
+            query = "track:" + song;
         }
         console.log("query: " + query);
 
@@ -41,9 +44,9 @@ exports.printSongInfo = function (keys, song) {
                     console.log("Album: " + trackInfo[i].album.name);
                 }
             }, function (err) {
-                console.log('Something went wrong!', err);
+                console.log('Something went wrong1!', err);
             });
     }, function (err) {
-        console.log('Something went wrong!', err);
+        console.log('Something went wrong2!', err);
     });
 }

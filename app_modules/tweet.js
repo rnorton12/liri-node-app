@@ -4,7 +4,7 @@
 var Twitter = require("twitter");
 
 exports.printMyTweets = function (keys, screen_name, count) {
-    console.log(keys.twitterKeys);
+    //console.log(keys.twitterKeys);
     var client = new Twitter(keys); // twitter client
 
     if (count === undefined) {
@@ -15,20 +15,20 @@ exports.printMyTweets = function (keys, screen_name, count) {
         count: count
     };
     client.get("statuses/user_timeline", params, function (
-                error,
-                tweets,
-                response
-            ) {
+        error,
+        tweets,
+        response
+    ) {
 
         if (!error) {
-            console.log(tweets);
+            //console.log(tweets);
             for (var i = 0; i < tweets.length; i++) {
                 console.log(
-                            i + 1 + "::: " + tweets[i].created_at + "::: " + tweets[i].text
-                        );
+                    i + 1 + "::: " + tweets[i].created_at + "::: " + tweets[i].text
+                );
             }
         } else {
             throw error;
         }
     });
-} 
+}
