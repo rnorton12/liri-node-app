@@ -1,9 +1,9 @@
 var keys = require("./keys.js");
-var help = require("./app_modules/help.js");
-var tweet = require("./app_modules/tweet.js");
-var spotify = require("./app_modules/spotify.js");
-var omdb = require("./app_modules/omdb.js");
-var log = require("./app_modules/log.js");
+var help = require("./help.js");
+var tweet = require("./tweet.js");
+var spotify = require("./spotify.js");
+var omdb = require("./omdb.js");
+var log = require("./log.js");
 var request = require("request");
 var fs = require('fs');
 
@@ -34,19 +34,27 @@ processCommand = function (command, parameter) {
             // node liri.js do-what-it-says`
             // Using the `fs` Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
             // It should run `spotify-this-song` for "I Want it That Way," as follows the text in `random.txt`.
-            fs.readFile("./app_inputs/random.txt", "utf8", function (err, data) {
-                if (err) throw err;
-                //console.log(data);
+            fs.readFile("./random.txt", "utf8", function (err, data) {
+                if (err) {
+                    console.log(err);
+                    log.logData(err);
+                    throw err;
+                }
+
                 var arguments = data.split(",");
-                //console.log(arguments[0].trim());
-                //console.log(arguments[1].trim());
+                for (var i = 0; i < arguments.length; i++) {
+                    // just to remain consistent
+                    process.argv[i + 2] = arguments[i];
+                }
+                log.logData(arguments);
                 processCommand(arguments[0].trim(), arguments[1].trim(), 0);
             });
             break;
         default:
-            console.log("Not a valid command!");
+            text = "Not a valid command!";
+            console.log(text);
+            log.logData(text);
     }
 }
-
-processCommand(command, parameter);
 log.logData(process.argv);
+processCommand(command, parameter);

@@ -1,7 +1,6 @@
-var log = require("./app_modules/log.js");
+var log = require("./log.js");
 var text = ""; // text to log or display
 exports.printHelp = function () {
-
     text = "node liri.js my-tweets" + "\n";
     text += "show your last 20 tweets and when they were created at in your terminal/bash window." + "\n";
     text += "===============" + "\n";
@@ -12,8 +11,8 @@ exports.printHelp = function () {
     text += "If no song is provided then it will default to 'The Sign' by Ace of Base." + "\n";
     text += "===============" + "\n";
     text += "node liri.js movie-this '<movie name here>'" + "\n";
-    text += console.log("This will output the following information to your terminal/bash window:" + "\n";
-    text += console.log("- Title of the movie\n" + "- Year the movie was released" + "\n";
+    text += "This will output the following information to your terminal/bash window:" + "\n";
+    text += "- Title of the movie\n" + "- Year the movie was released" + "\n";
     text += "- IMDB Rating of the movie\n" + "- Rotten Tomatoes Rating of the movie" + "\n";
     text += "- Country where the movie was produced\n" + "- Language of the movie" + "\n";
     text += "- Plot of the movie\n" + "- Actors in the movie" + "\n";
